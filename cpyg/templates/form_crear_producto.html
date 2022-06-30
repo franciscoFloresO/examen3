@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear producto</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>  
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>::selection{color:rgb(224, 224, 224);background: rgba(89, 0, 255, 0.693) }</style>
+    
+
+
+<script>
+
+    $(function() 
+    {
+      $("#formulario").validate({
+            rules: {
+                  email:{
+
+                       idProducto: "required",
+                       nombre: "required",
+                       marca: "required",
+                       precio: "required",
+                        
+                  }   
+                  
+              }, //rules
+            messages: {
+                    idProducto: {
+                      required: 'Ingrese ID del producto',
+                  },
+                  nombre: {
+                      required: 'Ingrese nombre del producto',
+                  },
+                  marca:{
+                      required: 'Ingrese marca del producto',
+                  },
+                  precio:{
+                      required: 'Ingrese precio del producto',
+             
+                 },
+                }  
+                   
+           })//messages
+      }); //$('#mi-formulario').validate
+
+
+</script>
+    <title>Crear Producto</title>
+</head>
+<body style="background-color: #16a;">
+    {% load static %}
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#opciones">
+            <span class="navbar-togger-icon"></span>
+        </button>
+
+        <a class="navbar-brand" href="#" style="background-color:#059">
+            <img id="logo" src="{% static 'img/logo.jpg' %}" width="50px" height="50px">
+
+        </a>
+
+        <div class="collapse navbar-collapse" id="opciones">
+            <ul class="navbar-nav">
+                <li class="nav-item ">
+                    <a class="nav-link txtnav" href="{% url 'index' %}"  style="color:#fefefe">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link txtnav" href="{% url 'qsomos' %}" target="_BLANK" style="color:#fefefe">Quienes Somos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link txtnav" href="{% url 'fotos' %}" target="_BLANK" style="color:#fefefe">Fotos</a>
+                </li>  
+                <li class="nav-item">
+                  <a class="nav-link txtnav" href="{% url 'productos' %}" target="_BLANK" style="color:#fefefe">Productos</a>
+              </li>     
+              <li class="nav-item">
+                <a class="nav-link txtnav" href="{% url 'formReg' %}" target="_BLANK" style="color:#fefefe">Registro</a>
+            </li>   
+            <li class="nav-item">
+                <a class="nav-link txtnav" href="{% url 'formContacto' %}" target="_BLANK" style="color:#fefefe">Contacto</a>
+            </li>    
+            </ul>
+            <div style="margin-left: auto;">
+              {% if user.is_authenticated %}
+              <a href="{% url 'form_crear_producto' %}" target="_BLANKS"><img id="patitas" src="{% static 'img/nuevo.png' %}" width="50px" height="50px"></a>
+              <a href="{% url 'logout' %}" target="_BLANKS"><img id="patitas" src="{% static 'img/exit.png' %}" width="50px" height="50px"></a>
+              {% else %}
+              <a  href="{% url 'login' %}" target="_BLANKS"><img id="patitas" src="{% static 'img/user.png' %}" width="50px" height="50px"></a>
+              {% endif %}
+              <a  href="{% url 'feriados' %}" target="_BLANKS"><img id="patitas" src="{% static 'img/corazon.png' %}" width="50px" height="50px"></a>
+            </div>  
+
+        </div>
+    </nav>
+    <div class="container">
+        <h2>Creando Producto</h2>
+
+        <div class="row">
+            <form method="POST" action="#" id="formulario">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    {{producto_form.idProducto.label}}
+                    {{producto_form.idProducto}}
+                </div>
+                <div class="form-group">
+                    {{ producto_form.nombre.label }}
+                    {{ producto_form.nombre }}
+                </div>
+                <div class="form-group">
+                    {{ producto_form.marca.label }}
+                    {{ producto_form.marca }}
+                </div>
+                <div class="form-group">
+                    {{ producto_form.precio.label }}
+                    {{ producto_form.precio }}
+                </div>
+                <div class="form-group">
+                    {{ producto_form.categoria.label }}
+                    {{ producto_form.categoria }}
+                </div>
+                <br><br>
+                <input type="submit" class="btn btn-primary" value="Enviar">
+                <input type="reset" class="btn btn-danger" value="Limpiar">
+            </form>
+        </div>
+    </div>
+        <footer>
+      <div class="row col-13 bk-footer" style="margin: 0.1px;">
+          <div class="col-lg-1">
+              <img id="logo" src="{% static 'img/logo.jpg' %}" alt="60px" width="60px">
+          </div>
+          <div class="col-lg-1 footer-ltt">
+            <a href="{% url 'index' %}"  id="linkFooter"><strong>Inicio</strong></a>
+          </div>
+          <div class="col-lg-1 footer-ltt">
+            <a href="{% url 'qsomos' %}" target="_BLANK" id="linkFooter"><strong>Quienes Somos</strong></a>
+          </div>
+          <div class="col-lg-1 footer-ltt">
+            <a href="{% url 'fotos' %}" target="_BLANK"  id="linkFooter"><strong>Fotos</strong></a>
+          </div>
+          <div class="col-lg-1 footer-ltt">
+            <a href="{% url 'productos' %}" target="_BLANK" id="linkFooter"><strong>Productos</strong></a>
+          </div>
+          <div class="col-lg-1 footer-ltt">
+            <a href="{% url 'formReg' %}" target="_BLANK" id="linkFooter"><strong>Registro</strong></a>
+          </div>
+          <div class="col-lg-1 footer-ltt">
+            <a href="{% url 'formContacto' %}" target="_BLANK" id="linkFooter"><strong>Contáctanos</strong></a>
+          </div>
+          <div class="col-lg-1 footer-ltt">
+            <a href="javascript:alert('Visitanos en nuestras RRSS');" id="linkFooter"><strong>Redes Sociales</strong></a>
+              <br><br>
+              <div class="row ">
+                  <img class="footer-icon" src="{% static 'img/twitter.png' %}" alt="" width="30px" height="30px" style=" margin-left: 35px;">
+                  <img class="footer-icon" src="{% static 'img/Instagram.png' %}" alt="" width="30px" height="30px" style=" margin-left: 10px;">
+
+              </div>
+          </div>
+
+
+          <div class="col-lg-4 footer-contacto">
+
+              <strong>Contacto</strong>
+              <br><br>
+              <div class="row">
+                  <img src="{% static 'img/twitter.png' %}" alt="" width="20px" height="20px"
+                      style="margin-right: 5px; margin-left: 5px;" href="#">
+                  <p class="footer-contacto">@Comoperrosygatos</p>
+              </div>
+              <div class="row">
+                  <img src="{% static 'img/instagram.png' %}" alt="" width="20px" height="20px"
+                      style="margin-right: 5px; margin-left: 5px;" href="#">
+                  <p class="footer-contacto">@Comoperrosygatos</p>
+              </div>
+              <div class="row">
+                  <img src="{% static 'img/email.png' %}" alt="" width="20px" height="20px"
+                      style="margin-right: 5px; margin-left: 5px;" href="#">
+                  <p class="footer-contacto">contacto@comoperrosygatos.cl</p>
+              </div>
+              <br>
+              <p class="footer-contacto" style="font-family: monospace; text-align: center;">&copy; franciscoFloresO - 2022</p>
+          </div>
+      </div>
+  </footer>
+</body>
+</html>
