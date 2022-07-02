@@ -16,11 +16,11 @@ def lista_cliente(request):
     elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = ClienteSerializer(data=data)
-        if serializer.is_valid():
+        if serializer.is_valid:
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# Create your views here.
+

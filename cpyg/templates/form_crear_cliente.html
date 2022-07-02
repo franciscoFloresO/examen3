@@ -61,16 +61,20 @@
                 }, //rules
             messages: {
                     rut: {
-                    required: 'Ingrese rut del cliente ',
+                        required: 'Ingrese rut del cliente ',
                         },
                     nombre: {
-                    required: 'Ingrese nombre del cliente',
+                        required: 'Ingrese nombre del cliente',
                     },
                     correo:{
-                    required: 'Ingrese informacion del cliente',
+                        required: 'Ingrese correo del cliente',
                             },
-                    telefono:{required: 'Ingrese número de contacto',},
-                    direccion:{required:'Ingrese dirección',},
+                    telefono:{
+                        required: 'Ingrese número de contacto',
+                    },
+                    direccion:{
+                        required:'Ingrese dirección',
+                    },
                 
             }//messages
         }); //$('#mi-formulario').validate
@@ -80,28 +84,78 @@
 </script>
     <title>Crear Cliente</title>
 </head>
-<body>
-    <div class="container">
-        <h2>Creando Cliente</h2>
+<body style="background-color: #16a;">
+    {%load static %}
+      <nav class="navbar navbar-expand-sm navbar-light bg-light">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#opciones">
+              <span class="navbar-togger-icon"></span>
+          </button>
+  
+          <a class="navbar-brand" href="#" style="background-color:#059">
+              <img id="logo" src="{% static 'img/logo.jpg' %}" width="50px" height="50px">
+  
+          </a>
+  
+          <div class="collapse navbar-collapse" id="opciones">
+              <ul class="navbar-nav">
+                  <li class="nav-item ">
+                      <a class="nav-link txtnav" href="{% url 'index' %}"  style="color:#fefefe">Inicio</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link txtnav" href="{% url 'qsomos' %}" target="_BLANK" style="color:#fefefe">Quienes Somos</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link txtnav" href="{% url 'fotos' %}" target="_BLANK" style="color:#fefefe">Fotos</a>
+                  </li>  
+                  <li class="nav-item">
+                    <a class="nav-link txtnav" href="{% url 'productos' %}" target="_BLANK" style="color:#fefefe">Productos</a>
+                </li>     
+                <li class="nav-item">
+                  <a class="nav-link txtnav" href="{% url 'formReg' %}" target="_BLANK" style="color:#fefefe">Registro</a>
+              </li>   
+              <li class="nav-item">
+                  <a class="nav-link txtnav" href="{% url 'formContacto' %}" target="_BLANK" style="color:#fefefe">Contacto</a>
+              </li>    
+              </ul>
+              <div style="margin-left: auto;">
+                {% if user.is_authenticated %}
+                <a href="{% url 'botonera' %}" target="_BLANKS"><img id="patitas" src="{% static 'img/nuevo.png' %}" width="50px" height="50px"></a>
+                <a href="{% url 'logout' %}" target="_BLANKS"><img id="patitas" src="{% static 'img/exit.png' %}" width="50px" height="50px"></a>
+                {% else %}
+                <a  href="{% url 'login' %}" target="_BLANKS"><img id="patitas" src="{% static 'img/user.png' %}" width="50px" height="50px"></a>
+                {% endif %}
+                <a  href="{% url 'feriados' %}" target="_BLANKS"><img id="patitas" src="{% static 'img/corazon.png' %}" width="50px" height="50px"></a>
+              </div>  
+  
+          </div>
+      </nav>
+    <div>
+        <h1 id="tit-pag">Creando Cliente</h1>
 
-        <div class="row">
+        <div class="caja-container">
             <form method="POST" action="#" id="formulario">
                 {% csrf_token %}
                 
                 <div class="form-group">
                     {{cliente_form.rut.label}}
-                    {{ cliente_form.rut}}
+                    {{cliente_form.rut}}
                 </div>
+
                 <div class="form-group">
                     {{cliente_form.nombre.label}}
                     {{cliente_form.nombre}}
                 </div>
+                
                 <div class="form-group">
                     {{cliente_form.correo.label}}
                     {{cliente_form.correo}}
+                </div>
+                
                 <div class="form-group">
                     {{cliente_form.telefono.label}}
                     {{cliente_form.telefono}}
+                </div>
+                
                 <div class="form-group">
                     {{cliente_form.direccion.label}}
                     {{cliente_form.direccion}}                    
@@ -113,5 +167,63 @@
             </form>
         </div>
     </div>
+    <footer>
+        <div class="row col-13 bk-footer" style="margin: 0.1px;">
+            <div class="col-lg-1">
+                <img id="logo" src="{% static 'img/logo.jpg' %}" alt="60px" width="60px">
+            </div>
+            <div class="col-lg-1 footer-ltt">
+              <a href="{% url 'index' %}"  id="linkFooter"><strong>Inicio</strong></a>
+            </div>
+            <div class="col-lg-1 footer-ltt">
+              <a href="{% url 'qsomos' %}" target="_BLANK" id="linkFooter"><strong>Quienes Somos</strong></a>
+            </div>
+            <div class="col-lg-1 footer-ltt">
+              <a href="{% url 'fotos' %}" target="_BLANK"  id="linkFooter"><strong>Fotos</strong></a>
+            </div>
+            <div class="col-lg-1 footer-ltt">
+              <a href="{% url 'productos' %}" target="_BLANK" id="linkFooter"><strong>Productos</strong></a>
+            </div>
+            <div class="col-lg-1 footer-ltt">
+              <a href="{% url 'formReg' %}" target="_BLANK" id="linkFooter"><strong>Registro</strong></a>
+            </div>
+            <div class="col-lg-1 footer-ltt">
+              <a href="{% url 'formContacto' %}" target="_BLANK" id="linkFooter"><strong>Contáctanos</strong></a>
+            </div>
+            <div class="col-lg-1 footer-ltt">
+              <a href="javascript:alert('Visitanos en nuestras RRSS');" id="linkFooter"><strong>Redes Sociales</strong></a>
+                <br><br>
+                <div class="row ">
+                    <img class="footer-icon" src="{% static 'img/twitter.png' %}" alt="" width="30px" height="30px" style=" margin-left: 35px;">
+                    <img class="footer-icon" src="{% static 'img/Instagram.png' %}" alt="" width="30px" height="30px" style=" margin-left: 10px;">
+  
+                </div>
+            </div>
+  
+  
+            <div class="col-lg-4 footer-contacto">
+  
+                <strong>Contacto</strong>
+                <br><br>
+                <div class="row">
+                    <img src="{% static 'img/twitter.png' %}" alt="" width="20px" height="20px"
+                        style="margin-right: 5px; margin-left: 5px;" href="#">
+                    <p class="footer-contacto">@Comoperrosygatos</p>
+                </div>
+                <div class="row">
+                    <img src="{% static 'img/instagram.png' %}" alt="" width="20px" height="20px"
+                        style="margin-right: 5px; margin-left: 5px;" href="#">
+                    <p class="footer-contacto">@Comoperrosygatos</p>
+                </div>
+                <div class="row">
+                    <img src="{% static 'img/email.png' %}" alt="" width="20px" height="20px"
+                        style="margin-right: 5px; margin-left: 5px;" href="#">
+                    <p class="footer-contacto">contacto@comoperrosygatos.cl</p>
+                </div>
+                <br>
+                <p class="footer-contacto" style="font-family: monospace; text-align: center;">&copy; franciscoFloresO - 2022</p>
+            </div>
+        </div>
+    </footer>    
 </body>
 </html>

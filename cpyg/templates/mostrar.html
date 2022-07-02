@@ -26,13 +26,57 @@
     <style>::selection{color:rgb(224, 224, 224);background: rgba(89, 0, 255, 0.693) }</style>
 
 </head>
-<body>
-    <div class="container">
+<body style="background-color: #16a;">
+    {%load static %}
+      <nav class="navbar navbar-expand-sm navbar-light bg-light">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#opciones">
+              <span class="navbar-togger-icon"></span>
+          </button>
+  
+          <a class="navbar-brand" href="#" style="background-color:#059">
+              <img id="logo" src="{% static 'img/logo.jpg' %}" width="50px" height="50px">
+  
+          </a>
+  
+          <div class="collapse navbar-collapse" id="opciones">
+              <ul class="navbar-nav">
+                  <li class="nav-item ">
+                      <a class="nav-link txtnav" href="{% url 'index' %}"  style="color:#fefefe">Inicio</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link txtnav" href="{% url 'qsomos' %}" target="_BLANK" style="color:#fefefe">Quienes Somos</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link txtnav" href="{% url 'fotos' %}" target="_BLANK" style="color:#fefefe">Fotos</a>
+                  </li>  
+                  <li class="nav-item">
+                    <a class="nav-link txtnav" href="{% url 'productos' %}" target="_BLANK" style="color:#fefefe">Productos</a>
+                </li>     
+                <li class="nav-item">
+                  <a class="nav-link txtnav" href="{% url 'formReg' %}" target="_BLANK" style="color:#fefefe">Registro</a>
+              </li>   
+              <li class="nav-item">
+                  <a class="nav-link txtnav" href="{% url 'formContacto' %}" target="_BLANK" style="color:#fefefe">Contacto</a>
+              </li>    
+              </ul>
+              <div style="margin-left: auto;">
+                {% if user.is_authenticated %}
+                <a href="{% url 'botonera' %}" target="_BLANKS"><img id="patitas" src="{% static 'img/nuevo.png' %}" width="50px" height="50px"></a>
+                <a href="{% url 'logout' %}" target="_BLANKS"><img id="patitas" src="{% static 'img/exit.png' %}" width="50px" height="50px"></a>
+                {% else %}
+                <a  href="{% url 'login' %}" target="_BLANKS"><img id="patitas" src="{% static 'img/user.png' %}" width="50px" height="50px"></a>
+                {% endif %}
+                <a  href="{% url 'feriados' %}" target="_BLANKS"><img id="patitas" src="{% static 'img/corazon.png' %}" width="50px" height="50px"></a>
+              </div>  
+  
+          </div>
+      </nav>
+    <div class="container tabla">
         <h2>Mostrando Clientes</h2>
 
         <table class="table">
             <thead>
-                <tr>
+                <tr class="txt-gnral">
                     <th>rut</th>
                     <th>nombre</th>
                     <th>correo</th>
@@ -43,21 +87,94 @@
                 </tr>
             </thead>
             <tbody>
-                {% for ve in cliente %}
+            {% for ve in cliente %}
                 <tr>
-                    <td> {{ ve.rut }}</td>
-                    <td> {{ ve.nombre }}</td>
-                    <td> {{ ve.correo }}</td>
-                    <td> {{ ve.telefono }}</td>
-                    <td> {{ ve.direccion }}</td>
+                    <td style="color: white"> {{ ve.rut }}</td>
+                    <td style="color: white"> {{ ve.nombre }}</td>
+                    <td style="color: white"> {{ ve.correo }}</td>
+                    <td style="color: white"> {{ ve.telefono }}</td>
+                    <td style="color: white"> {{ ve.direccion }}</td>
+                    
+                    {% if user.is_authenticated %}
                     <td> <a href="{% url 'form_mod_cliente' ve.rut %}" class="btn btn-primary"> Modificar</a></td>
+                    {% else %}
+                    <td><a href="#" style="color: yellow">No tienes permiso para modificar clientes</a></td>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
                     <td> <a href="{% url 'form_del_cliente' ve.rut %}" class="btn btn-danger"> Eliminar</a></td>
+                    {% else %}
+                    <td><a href="#" style="color: yellow">No tienes permiso para eliminar clientes</a></td>
+                    {% endif %}
+
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+
         <a href="{% url 'form_crear_cliente' %}" class="btn btn-primary">Creando Clientes</a>
+
         <a href="{% url 'index' %}" class="btn btn-success">Home</a>
+        <br>
+        <br>
     </div>
+    <footer>
+        <div class="row col-13 bk-footer" style="margin: 0.1px;">
+            <div class="col-lg-1">
+                <img id="logo" src="{% static 'img/logo.jpg' %}" alt="60px" width="60px">
+            </div>
+            <div class="col-lg-1 footer-ltt">
+              <a href="{% url 'index' %}"  id="linkFooter"><strong>Inicio</strong></a>
+            </div>
+            <div class="col-lg-1 footer-ltt">
+              <a href="{% url 'qsomos' %}" target="_BLANK" id="linkFooter"><strong>Quienes Somos</strong></a>
+            </div>
+            <div class="col-lg-1 footer-ltt">
+              <a href="{% url 'fotos' %}" target="_BLANK"  id="linkFooter"><strong>Fotos</strong></a>
+            </div>
+            <div class="col-lg-1 footer-ltt">
+              <a href="{% url 'productos' %}" target="_BLANK" id="linkFooter"><strong>Productos</strong></a>
+            </div>
+            <div class="col-lg-1 footer-ltt">
+              <a href="{% url 'formReg' %}" target="_BLANK" id="linkFooter"><strong>Registro</strong></a>
+            </div>
+            <div class="col-lg-1 footer-ltt">
+              <a href="{% url 'formContacto' %}" target="_BLANK" id="linkFooter"><strong>Contáctanos</strong></a>
+            </div>
+            <div class="col-lg-1 footer-ltt">
+              <a href="javascript:alert('Visitanos en nuestras RRSS');" id="linkFooter"><strong>Redes Sociales</strong></a>
+                <br><br>
+                <div class="row ">
+                    <img class="footer-icon" src="{% static 'img/twitter.png' %}" alt="" width="30px" height="30px" style=" margin-left: 35px;">
+                    <img class="footer-icon" src="{% static 'img/Instagram.png' %}" alt="" width="30px" height="30px" style=" margin-left: 10px;">
+  
+                </div>
+            </div>
+  
+  
+            <div class="col-lg-4 footer-contacto">
+  
+                <strong>Contacto</strong>
+                <br><br>
+                <div class="row">
+                    <img src="{% static 'img/twitter.png' %}" alt="" width="20px" height="20px"
+                        style="margin-right: 5px; margin-left: 5px;" href="#">
+                    <p class="footer-contacto">@Comoperrosygatos</p>
+                </div>
+                <div class="row">
+                    <img src="{% static 'img/instagram.png' %}" alt="" width="20px" height="20px"
+                        style="margin-right: 5px; margin-left: 5px;" href="#">
+                    <p class="footer-contacto">@Comoperrosygatos</p>
+                </div>
+                <div class="row">
+                    <img src="{% static 'img/email.png' %}" alt="" width="20px" height="20px"
+                        style="margin-right: 5px; margin-left: 5px;" href="#">
+                    <p class="footer-contacto">contacto@comoperrosygatos.cl</p>
+                </div>
+                <br>
+                <p class="footer-contacto" style="font-family: monospace; text-align: center;">&copy; franciscoFloresO - 2022</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

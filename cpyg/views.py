@@ -38,21 +38,22 @@ def form_mod_cliente(request):
 def form_mod_producto(request):
     return render(request, 'form_mod_producto.html')
 
-def mostrar(request):
-    return render(request, 'mostrar.html')
-
-def mostrar2(request):
-    return render(request, 'mostrar2.html')
-
 def botonera(request):
     return render(request, 'botonera.html')
 
-def mostrar_producto(request):
+def mostrar2(request):
     producto = Producto.objects.all()
     datos={
         'producto' : producto
         }
     return render(request, 'mostrar2.html', datos)
+
+def mostrar(request):
+    cliente = Cliente.objects.all()
+    datos={
+        'cliente' : cliente
+    }
+    return render(request, 'mostrar.html', datos)
 
 def form_producto(request):
     if request.method=='POST':
@@ -86,7 +87,7 @@ def form_crear_cliente(request):
     if request.method=='POST':
         cliente_form = ClienteForm(request.POST)
         if cliente_form.is_valid():
-            cliente_form.save()        #similar al insert
+            cliente_form.save()
             return redirect('mostrar')
     else:
         cliente_form = ClienteForm()

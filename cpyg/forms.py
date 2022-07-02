@@ -62,11 +62,11 @@ class ClienteForm(forms.ModelForm):
         model= Cliente
         fields = ['rut', 'nombre', 'correo', 'telefono', 'direccion']
         labels ={
-            'rut': 'rut', 
-            'nombre': 'nombre', 
-            'correo': 'correo',
-            'telefono': 'telefono',
-            'direccion': 'direccion', 
+            'rut': 'Rut', 
+            'nombre': 'Nombre', 
+            'correo': 'Correo',
+            'telefono': 'Teléfono',
+            'direccion': 'Dirección', 
             
         }
         widgets={

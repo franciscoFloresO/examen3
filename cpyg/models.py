@@ -10,11 +10,11 @@ class Categoria (models.Model):
         return self.nombreCategoria
 
 class Cliente(models.Model):
-    rut = models.CharField(max_length=6, primary_key=True, verbose_name='rut')
-    nombre = models.CharField(max_length=20, verbose_name='nombre')
-    correo =models.CharField(max_length=20, verbose_name='correo')
-    telefono =models.CharField(max_length=20, verbose_name='telefono')
-    direccion = models.CharField(max_length=20, verbose_name='direccion')
+    rut = models.CharField(max_length=10, primary_key=True, verbose_name='Rut')
+    nombre = models.CharField(max_length=20, verbose_name='Nombre')
+    correo =models.CharField(max_length=20, verbose_name='Correo',blank=True, null=True)
+    telefono =models.CharField(max_length=20, verbose_name='Teléfono' ,blank=True, null=True)
+    direccion = models.CharField(max_length=50, verbose_name='Direccion', blank=True, null=True)
     
 
     def __str__(self):
